@@ -3,8 +3,6 @@
 import React, { useState, useEffect } from "react";
 import {
   ChevronDown,
-  Code,
-  Palette,
   Smartphone,
   Globe,
   Database,
@@ -12,27 +10,12 @@ import {
   ArrowRight,
   Menu,
   X,
-  CheckCircle,
-  Zap,
-  Shield,
-  Users,
   Sparkles,
   Cpu,
   Layers,
   GitBranch,
   Terminal,
   Rocket,
-  Mail,
-  Phone,
-  MapPin,
-  Linkedin,
-  Github,
-  Instagram,
-  Star,
-  Award,
-  TrendingUp,
-  Clock,
-  MessageSquare,
   Sun,
   Moon,
 } from "lucide-react";
@@ -539,7 +522,7 @@ export default function NimbusWebsite() {
                           <span className="text-green-400">mission:</span>
                           <span className="text-orange-400">
                             {" "}
-                            "Transformar ideias em realidade"
+                            &quot;Transformar ideias em realidade&quot;
                           </span>
                           ,
                         </div>
@@ -553,7 +536,7 @@ export default function NimbusWebsite() {
                           <span className="text-green-400">stack:</span>
                           <span className="text-orange-400">
                             {" "}
-                            ["React", "Node", "PHP", "Python"]
+                            [&quot;React&quot;, &quot;Node&quot;, &quot;PHP&quot;, &quot;Python&quot;]
                           </span>
                           ,
                         </div>
@@ -567,7 +550,7 @@ export default function NimbusWebsite() {
                           <span className="text-green-400">quality:</span>
                           <span className="text-orange-400">
                             {" "}
-                            "Excepcional"
+                            &quot;Excepcional&quot;
                           </span>
                           ,
                         </div>
@@ -581,7 +564,7 @@ export default function NimbusWebsite() {
                           <span className="text-green-400">delivery:</span>
                           <span className="text-orange-400">
                             {" "}
-                            "No prazo, sempre"
+                            &quot;No prazo, sempre&quot;
                           </span>
                         </div>
                       </div>

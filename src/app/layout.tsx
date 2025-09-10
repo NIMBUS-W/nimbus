@@ -15,7 +15,6 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "NIMBUS",
-  image: "/logo_transparent.png",
   description: "Código que impressiona e entrega.",
 };
 
