@@ -536,7 +536,8 @@ export default function NimbusWebsite() {
                           <span className="text-green-400">stack:</span>
                           <span className="text-orange-400">
                             {" "}
-                            [&quot;React&quot;, &quot;Node&quot;, &quot;PHP&quot;, &quot;Python&quot;]
+                            [&quot;React&quot;, &quot;Node&quot;,
+                            &quot;PHP&quot;, &quot;Python&quot;]
                           </span>
                           ,
                         </div>
