@@ -302,9 +302,6 @@ export default function NimbusWebsite() {
                   />
                 </div>
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                NIMBUS
-              </span>
             </div>
 
             {/* Desktop Menu */}
@@ -428,9 +425,6 @@ export default function NimbusWebsite() {
             <div className="space-y-8">
               <div className="inline-flex items-center px-4 py-2 bg-purple-500/10 border border-purple-500/30 rounded-full backdrop-blur-sm">
                 <Sparkles className="w-4 h-4 text-purple-400 mr-2 animate-pulse" />
-                <span className="text-purple-400 text-sm font-semibold">
-                  Next-Gen Development Studio
-                </span>
               </div>
 
               <h1 className="text-5xl md:text-7xl font-bold leading-tight">
