@@ -1,7 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import {
+  Loader2,
+  CheckCircle,
+  AlertCircle,
+  X,
   ChevronDown,
   Smartphone,
   Globe,
@@ -9,7 +14,6 @@ import {
   Cloud,
   ArrowRight,
   Menu,
-  X,
   Sparkles,
   Cpu,
   Layers,
@@ -20,6 +24,7 @@ import {
   Moon,
 } from "lucide-react";
 import { Footer } from "@/components/Footer";
+import { Button } from "@/components/ui/button";
 
 export default function NimbusWebsite() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,6 +39,11 @@ export default function NimbusWebsite() {
     budget: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -178,9 +188,86 @@ export default function NimbusWebsite() {
     },
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+
+    // Reset status
+    setSubmitStatus({ type: null, message: "" });
+
+    // Validação
+    if (!formData.name || formData.name.trim().length < 2) {
+      setSubmitStatus({
+        type: "error",
+        message: "Nome deve ter pelo menos 2 caracteres",
+      });
+      return;
+    }
+
+    if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setSubmitStatus({
+        type: "error",
+        message: "Email inválido",
+      });
+      return;
+    }
+
+    if (!formData.message || formData.message.trim().length < 10) {
+      setSubmitStatus({
+        type: "error",
+        message: "Mensagem deve ter pelo menos 10 caracteres",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("/api/contato", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          message: formData.message.trim(),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setSubmitStatus({
+          type: "success",
+          message:
+            "Mensagem enviada com sucesso! Entraremos em contato em breve.",
+        });
+
+        // Limpar formulário
+        setFormData({
+          name: "",
+          email: "",
+          project: "",
+          budget: "",
+          message: "",
+        });
+
+        // Auto-limpar mensagem após 5 segundos
+        setTimeout(() => {
+          setSubmitStatus({ type: null, message: "" });
+        }, 5000);
+      } else {
+        throw new Error(data.message || "Erro ao enviar mensagem");
+      }
+    } catch (error) {
+      console.error("Erro:", error);
+      setSubmitStatus({
+        type: "error",
+        message: "Erro ao enviar mensagem. Tente novamente.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (
@@ -200,40 +287,6 @@ export default function NimbusWebsite() {
         theme === "dark" ? "bg-black text-white" : "bg-gray-50 text-gray-900"
       } overflow-x-hidden transition-colors duration-300`}
     >
-      <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes gradient {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
-        }
-        .animate-fadeIn {
-          animation: fadeIn 0.5s ease-out;
-        }
-        .animate-gradient {
-          animation: gradient 8s ease infinite;
-          background-size: 300% 300%;
-        }
-        .bg-300 {
-          background-size: 300% 300%;
-        }
-      `}</style>
-
       {/* Animated Background - Only in dark mode */}
       {theme === "dark" && (
         <div className="fixed inset-0 z-0">
@@ -278,7 +331,9 @@ export default function NimbusWebsite() {
               <div className="w-16 h-16 relative group">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-pink-500 rounded-xl blur-lg group-hover:blur-xl transition-all opacity-75"></div>
                 <div className="relative w-full h-full flex items-center justify-center">
-                  <img
+                  <Image
+                    width={50}
+                    height={50}
                     src="/logo_transparent.png"
                     alt="Nimbus"
                     className="w-14 h-14 object-contain"
@@ -582,7 +637,9 @@ export default function NimbusWebsite() {
                   </div>
                   <div className="absolute bottom-4 right-4">
                     <div className="w-24 h-24 bg-gradient-to-br from-purple-600/20 to-pink-600/20 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-purple-500/30">
-                      <img
+                      <Image
+                        width={50}
+                        height={50}
                         src="/logo_transparent_notNIMBUS.png"
                         alt="Nimbus"
                         className="w-20 h-20 object-contain"
@@ -843,7 +900,9 @@ export default function NimbusWebsite() {
                     <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full blur-lg opacity-50"></div>
                     <div className="relative w-full h-full bg-gradient-to-br from-purple-500 to-pink-500 rounded-full overflow-hidden">
                       {/* Adicione a foto aqui */}
-                      <img
+                      <Image
+                        width={50}
+                        height={50}
                         src={member.image}
                         alt={member.name}
                         className="w-full h-full object-cover"
@@ -911,6 +970,29 @@ export default function NimbusWebsite() {
             </p>
           </div>
 
+          {/* Toast de Notificação */}
+          {submitStatus.type && (
+            <div
+              className={`fixed top-24 right-6 z-50 animate-fadeIn ${
+                submitStatus.type === "success" ? "bg-green-500" : "bg-red-500"
+              } text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-3 max-w-md`}
+            >
+              {submitStatus.type === "success" ? (
+                <CheckCircle className="w-5 h-5 flex-shrink-0" />
+              ) : (
+                <AlertCircle className="w-5 h-5 flex-shrink-0" />
+              )}
+              <p className="flex-1">{submitStatus.message}</p>
+              <Button
+                type="button"
+                onClick={() => setSubmitStatus({ type: null, message: "" })}
+                className="hover:opacity-80 transition"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+          )}
+
           <div className="max-w-2xl mx-auto relative group">
             {/* Efeito de Glow */}
             <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition duration-500"></div>
@@ -924,7 +1006,7 @@ export default function NimbusWebsite() {
                   htmlFor="name"
                   className="block text-sm font-medium text-gray-300 mb-2"
                 >
-                  Seu Nome
+                  Seu Nome *
                 </label>
                 <input
                   type="text"
@@ -933,16 +1015,18 @@ export default function NimbusWebsite() {
                   required
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-black/30 border border-purple-500/30 rounded-lg focus:ring-1 focus:ring-purple-500 focus:border-purple-500 transition placeholder:text-gray-500"
+                  disabled={isSubmitting}
+                  className="w-full px-4 py-3 bg-black/30 border border-purple-500/30 rounded-lg focus:ring-1 focus:ring-purple-500 focus:border-purple-500 transition placeholder:text-gray-500 disabled:opacity-50 disabled:cursor-not-allowed text-white"
                   placeholder="João Silva"
                 />
               </div>
+
               <div>
                 <label
                   htmlFor="email"
                   className="block text-sm font-medium text-gray-300 mb-2"
                 >
-                  Seu Email
+                  Seu Email *
                 </label>
                 <input
                   type="email"
@@ -951,16 +1035,18 @@ export default function NimbusWebsite() {
                   required
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-black/30 border border-purple-500/30 rounded-lg focus:ring-1 focus:ring-purple-500 focus:border-purple-500 transition placeholder:text-gray-500"
+                  disabled={isSubmitting}
+                  className="w-full px-4 py-3 bg-black/30 border border-purple-500/30 rounded-lg focus:ring-1 focus:ring-purple-500 focus:border-purple-500 transition placeholder:text-gray-500 disabled:opacity-50 disabled:cursor-not-allowed text-white"
                   placeholder="joao.silva@email.com"
                 />
               </div>
+
               <div>
                 <label
                   htmlFor="message"
                   className="block text-sm font-medium text-gray-300 mb-2"
                 >
-                  Sua Mensagem
+                  Sua Mensagem *
                 </label>
                 <textarea
                   name="message"
@@ -969,17 +1055,27 @@ export default function NimbusWebsite() {
                   required
                   value={formData.message}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-black/30 border border-purple-500/30 rounded-lg focus:ring-1 focus:ring-purple-500 focus:border-purple-500 transition placeholder:text-gray-500"
+                  disabled={isSubmitting}
+                  className="w-full px-4 py-3 bg-black/30 border border-purple-500/30 rounded-lg focus:ring-1 focus:ring-purple-500 focus:border-purple-500 transition placeholder:text-gray-500 disabled:opacity-50 disabled:cursor-not-allowed resize-none text-white"
                   placeholder="Gostaria de falar sobre meu projeto..."
                 ></textarea>
               </div>
+
               <button
                 type="submit"
-                className="w-full relative group/button px-8 py-3.5 text-white font-semibold"
+                disabled={isSubmitting}
+                className="w-full relative group/button px-8 py-3.5 text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg blur-md group-hover/button:blur-lg transition-all opacity-75"></div>
-                <div className="relative w-full bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg flex items-center justify-center">
-                  Enviar Mensagem
+                <div className="relative w-full bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg flex items-center justify-center py-3">
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                      Enviando...
+                    </>
+                  ) : (
+                    "Enviar Mensagem"
+                  )}
                 </div>
               </button>
             </form>
