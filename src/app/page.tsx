@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function NimbusWebsite() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -174,7 +175,7 @@ export default function NimbusWebsite() {
         "IA",
         "Python",
       ],
-      portfolio: "#portfolio1",
+      portfolio: "https://github.com/dav-icode",
       image: "/DaviFranco.jpg",
     },
     {
@@ -183,7 +184,7 @@ export default function NimbusWebsite() {
       description:
         "Apaixonado por criar experiências digitais memoráveis. Do pixel ao deploy.",
       skills: ["PHP", "JavaScript", "SQL", "Node.js", "HTML", "CSS"],
-      portfolio: "#portfolio2",
+      portfolio: "https://github.com/jottabkz",
       image: "/JoaoBarroso.jpg",
     },
   ];
@@ -942,7 +943,11 @@ export default function NimbusWebsite() {
                       href={member.portfolio}
                       className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg hover:shadow-lg hover:shadow-purple-500/25 transition-all group"
                     >
-                      <span className="font-semibold">Ver Portfolio</span>
+                      <span className="font-semibold">
+                        <Link href={member.portfolio}>
+                          Ver Portfólio
+                        </Link>
+                      </span>
                       <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </a>
                   </div>
@@ -1017,7 +1022,7 @@ export default function NimbusWebsite() {
                   onChange={handleInputChange}
                   disabled={isSubmitting}
                   className="w-full px-4 py-3 bg-black/30 border border-purple-500/30 rounded-lg focus:ring-1 focus:ring-purple-500 focus:border-purple-500 transition placeholder:text-gray-500 disabled:opacity-50 disabled:cursor-not-allowed text-white"
-                  placeholder="João Silva"
+                  placeholder="Nome Completo"
                 />
               </div>
 
@@ -1037,7 +1042,7 @@ export default function NimbusWebsite() {
                   onChange={handleInputChange}
                   disabled={isSubmitting}
                   className="w-full px-4 py-3 bg-black/30 border border-purple-500/30 rounded-lg focus:ring-1 focus:ring-purple-500 focus:border-purple-500 transition placeholder:text-gray-500 disabled:opacity-50 disabled:cursor-not-allowed text-white"
-                  placeholder="joao.silva@email.com"
+                  placeholder="seu.email@gmail.com"
                 />
               </div>
 

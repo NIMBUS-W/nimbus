@@ -1,6 +1,6 @@
 // app/components/Footer.tsx
 import Image from "next/image";
-import { Github, Linkedin, Instagram } from "lucide-react";
+import { Github, Link } from "lucide-react";
 
 export function Footer() {
   return (
@@ -22,28 +22,13 @@ export function Footer() {
             className="dark:hidden block"
           />
         </div>
-        <p className="text-gray-600 dark:text-gray-400 mb-6">
-          Código que impressiona e entrega.
-        </p>
         <div className="flex justify-center space-x-6 mb-8">
-          <a
-            href="#"
+          <Link
+            href="https://github.com/NIMBUS-W"
             className="text-gray-500 hover:text-purple-500 transition-colors"
           >
             <Github />
-          </a>
-          <a
-            href="#"
-            className="text-gray-500 hover:text-purple-500 transition-colors"
-          >
-            <Linkedin />
-          </a>
-          <a
-            href="#"
-            className="text-gray-500 hover:text-purple-500 transition-colors"
-          >
-            <Instagram />
-          </a>
+          </Link>
         </div>
         <p className="text-sm text-gray-500">
           &copy; {new Date().getFullYear()} Nimbus. Todos os direitos
