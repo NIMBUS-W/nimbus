@@ -1,12 +1,11 @@
-// next.config.js
-const isProd = process.env.NODE_ENV === "production";
+// next.config.ts
 
-const nextConfig = {
-  output: "export",
-  images: { unoptimized: true },
-  basePath: isProd ? "/NIMBUS" : "",
-  assetPrefix: isProd ? "/NIMBUS/" : "",
-  eslint: { ignoreDuringBuilds: true },
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  // Deixe este objeto vazio.
+  // A Vercel é otimizada para o Next.js e não precisa de
+  // configurações de path (basePath/assetPrefix) para funcionar.
 };
 
-module.exports = nextConfig;
+export default nextConfig;
