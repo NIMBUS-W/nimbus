@@ -321,7 +321,7 @@ export default function NimbusWebsite() {
           scrolled
             ? theme === "dark"
               ? "bg-black/80 backdrop-blur-xl border-b border-purple-500/20"
-              : "bg-white/80 backdrop-blur-xl border-b border-gray-200"
+              : "bg-white/90 backdrop-blur-xl border-b border-gray-200 shadow-lg"
             : "bg-transparent"
         }`}
       >
@@ -360,7 +360,7 @@ export default function NimbusWebsite() {
                   className={`relative ${
                     theme === "dark"
                       ? "text-gray-300 hover:text-white"
-                      : "text-gray-600 hover:text-gray-900"
+                      : "text-gray-700 hover:text-gray-900"
                   } transition-colors font-medium group`}
                 >
                   {item}
@@ -374,13 +374,13 @@ export default function NimbusWebsite() {
                 className={`p-2 rounded-lg ${
                   theme === "dark"
                     ? "bg-gray-800 hover:bg-gray-700"
-                    : "bg-gray-200 hover:bg-gray-300"
+                    : "bg-purple-100 hover:bg-purple-200"
                 } transition-colors`}
               >
                 {theme === "dark" ? (
-                  <Sun className="w-5 h-5" />
+                  <Sun className="w-5 h-5 text-yellow-400" />
                 ) : (
-                  <Moon className="w-5 h-5" />
+                  <Moon className="w-5 h-5 text-purple-600" />
                 )}
               </button>
 
@@ -403,13 +403,13 @@ export default function NimbusWebsite() {
               <button
                 onClick={toggleTheme}
                 className={`p-2 rounded-lg ${
-                  theme === "dark" ? "bg-gray-800" : "bg-gray-200"
+                  theme === "dark" ? "bg-gray-800" : "bg-purple-100"
                 } transition-colors`}
               >
                 {theme === "dark" ? (
-                  <Sun className="w-5 h-5" />
+                  <Sun className="w-5 h-5 text-yellow-400" />
                 ) : (
-                  <Moon className="w-5 h-5" />
+                  <Moon className="w-5 h-5 text-purple-600" />
                 )}
               </button>
               <button
@@ -421,12 +421,14 @@ export default function NimbusWebsite() {
             </div>
           </div>
 
-          {/* Mobile Menu */}
+          {/* Mobile Menu - CORRIGIDO COM FUNDO */}
           {isMenuOpen && (
             <div
-              className={`md:hidden mt-4 pb-4 space-y-2 border-t ${
-                theme === "dark" ? "border-purple-500/20" : "border-gray-200"
-              } pt-4`}
+              className={`md:hidden mt-4 pb-4 space-y-2 border-t rounded-lg ${
+                theme === "dark"
+                  ? "border-purple-500/20 bg-black/90 backdrop-blur-xl"
+                  : "border-gray-200 bg-white/95 backdrop-blur-xl shadow-lg"
+              } pt-4 px-4`}
             >
               {[
                 "Início",
@@ -440,11 +442,11 @@ export default function NimbusWebsite() {
                   key={i}
                   href={`#${item.toLowerCase()}`}
                   onClick={(e) => scrollToSection(e, `#${item.toLowerCase()}`)}
-                  className={`block py-2 ${
+                  className={`block py-3 px-4 rounded-lg ${
                     theme === "dark"
-                      ? "text-gray-300 hover:text-white"
-                      : "text-gray-600 hover:text-gray-900"
-                  } hover:pl-2 transition-all`}
+                      ? "text-gray-300 hover:text-white hover:bg-purple-500/10"
+                      : "text-gray-700 hover:text-gray-900 hover:bg-purple-50"
+                  } transition-all`}
                 >
                   {item}
                 </a>
@@ -491,8 +493,8 @@ export default function NimbusWebsite() {
                   theme === "dark" ? "text-gray-400" : "text-gray-600"
                 } leading-relaxed`}
               >
-                Dois engenheiros obcecados por excelência + IA de ponta. Criamos
-                sistemas que não apenas funcionam, mas dominam o mercado.
+                Excelência + IA de ponta. <br /> Sistema que funciona, e domina
+                o mercado.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
@@ -680,9 +682,10 @@ export default function NimbusWebsite() {
                 theme === "dark" ? "text-gray-400" : "text-gray-600"
               } leading-relaxed`}
             >
-              Somos dois desenvolvedores que respiram tecnologia. Nossa
-              obsessão? Criar sistemas que não só resolvem problemas, mas
-              redefinem padrões de mercado.
+              Criação de soluções de alta performance.
+              <br /> Velocidade na entrega 3x maior sem comprometer qualidade.{" "}
+              <br /> Performance, escalabilidade e manutenibilidade, porque
+              acreditamos que software excepcional é uma arte.
             </p>
 
             <p
@@ -845,14 +848,15 @@ export default function NimbusWebsite() {
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-4xl md:text-5xl font-bold">
-              Nossa{" "}
+              Nosso{" "}
               <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                 Arsenal
               </span>{" "}
               Tecnológico
             </h2>
             <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-              Ferramentas que dominamos para criar sua próxima solução digital
+              Ferramentas de programação para o desenvolvimento de suas
+              soluções.
             </p>
           </div>
 
@@ -944,9 +948,7 @@ export default function NimbusWebsite() {
                       className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg hover:shadow-lg hover:shadow-purple-500/25 transition-all group"
                     >
                       <span className="font-semibold">
-                        <Link href={member.portfolio}>
-                          Ver Portfólio
-                        </Link>
+                        <Link href={member.portfolio}>Ver Portfólio</Link>
                       </span>
                       <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </a>
